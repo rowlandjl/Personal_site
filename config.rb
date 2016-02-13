@@ -16,6 +16,53 @@ page '/*.txt', layout: false
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
 #  which_fake_page: "Rendering a fake page with a local variable" }
 
+require 'rack/request'
+begin
+  require 'dotenv'
+  Dotenv.load
+rescue
+end
+
+require 'mail'
+
+Mail.defaults do
+  delivery_method :smtp,
+    address: 'smtp.sendgrid.net',
+    port: '587',
+    authentication: 'plain',
+    enable_ssl: true,
+    user_name: ENV['SENDGRID_USERNAME'],
+    password: ENV['SENDGRID_PASSWORD']
+end
+
+class ContactForm
+  def initialize(app)
+    @app = app
+  end
+
+  def call(env)
+    if request(env).path == '/contact_submission'
+      # request.params
+      mail = Mail.new do
+        from 'rowlandjl82@gmail.com'
+        to 'rowlandjl82@gmail.com'
+        subject 'Personal Site Contact Inquiry'
+        body 'hello from test'
+      end
+      mail.deliver
+      [200, {'Content-Type' => 'text/html'}, ['Thanks for submitting']]
+
+    else
+      @app.call(env)
+    end
+  end
+
+  protected
+  def request(env)
+    @request = ::Rack::Request.new(env)
+  end
+end
+use ContactForm
 ###
 # Helpers
 ###

@@ -16,3 +16,9 @@ gem 'redcarpet', '~> 3.3', '>= 3.3.3'
 
 # For feed.xml.builder
 gem "builder", "~> 3.0"
+
+gem "mail"
+
+group :development, :test do
+  gem 'dotenv'
+end
