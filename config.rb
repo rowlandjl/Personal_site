@@ -43,13 +43,13 @@ class ContactForm
   def call(env)
     if request(env).path == '/contact_submission'
       # request.params
-      mail = Mail.new do
-        from 'rowlandjl82@gmail.com'
-        to 'rowlandjl82@gmail.com'
-        subject 'Personal Site Contact Inquiry'
-        body 'hello from test'
-      end
-      mail.deliver
+      # mail = Mail.new do
+      #   from 'rowlandjl82@gmail.com'
+      #   to 'rowlandjl82@gmail.com'
+      #   subject 'Personal Site Contact Inquiry'
+      #   body 'hello from test'
+      # end
+      # mail.deliver
       [200, {'Content-Type' => 'text/html'}, ['Thanks for submitting']]
 
     else
