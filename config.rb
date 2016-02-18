@@ -20,7 +20,7 @@ require 'rack/request'
 begin
   require 'dotenv'
   Dotenv.load
-rescue
+rescue LoadError
 end
 
 require 'mail'
