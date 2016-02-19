@@ -45,9 +45,34 @@
       <div class="row main-container">
         <%= yield %>
       </div>
-      <div class="row">
-        <div class="col-md-12 text-center footer">Jessica Rowland &copy; 2016</div>
+      <div class="row footer-container">
+        <div class="col-xs-6 col-md-6">Jessica Rowland &copy; 2016</div>
+        <div class="col-xs-6 col-md-6 text-right">
+          <a href="https://github.com/rowlandjl"><img src="images/github1.jpg"></a>
+          <a href="https://www.linkedin.com/in/jessicalrowland"><img src="images/linkedin.jpg"></a>
+          <a href="https://twitter.com/jesssicarowland"><img src="images/twitter.jpg"></a>
+          <a href="mailto:rowlandjl82@gmail.com"><img src="images/gmail.jpg"></a>
+        </div>
       </div>
     </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="/javascripts/jquery.js"></script>
+    <script type="text/javascript">
+      var contactForm;
+      if(contactForm = $('#con-form')){
+        $(contactForm).on('submit', function(e){
+          e.preventDefault();
+          $.ajax({
+            url: $(contactForm).attr('action'),
+            type: 'POST',
+            data: $(contactForm).serialize()
+          }).success(function(){
+            alert('Thanks! I will be in contact shortly.');
+            // clear out the form
+            // manipulate the DOM to show a friendly confirmation message (maybe above the form)
+          });
+        });
+      }
+    </script>
   </body>
 </html>

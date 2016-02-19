@@ -17,20 +17,21 @@ page '/*.txt', layout: false
 #  which_fake_page: "Rendering a fake page with a local variable" }
 
 require 'rack/request'
-begin
+# begin
   require 'dotenv'
   Dotenv.load
-rescue LoadError
-end
+# rescue LoadError
+# end
 
 require 'mail'
 
 Mail.defaults do
   delivery_method :smtp,
     address: 'smtp.sendgrid.net',
-    port: '587',
+    port: 587,
     authentication: 'plain',
     enable_ssl: true,
+    enable_starttls_auto: true,
     user_name: ENV['SENDGRID_USERNAME'],
     password: ENV['SENDGRID_PASSWORD']
 end
@@ -41,15 +42,18 @@ class ContactForm
   end
 
   def call(env)
+    req = request(env)
     if request(env).path == '/contact_submission'
       # request.params
-      # mail = Mail.new do
-      #   from 'rowlandjl82@gmail.com'
-      #   to 'rowlandjl82@gmail.com'
-      #   subject 'Personal Site Contact Inquiry'
-      #   body 'hello from test'
-      # end
-      # mail.deliver
+      # require 'pry'
+      # binding.pry
+      mail = Mail.new do
+        from req.params["email"]
+        to 'rowlandjl82@gmail.com'
+        subject req.params["subject"]
+        body req.params["message"]
+      end
+      mail.deliver
       [200, {'Content-Type' => 'text/html'}, ['Thanks for submitting']]
 
     else
