@@ -17,11 +17,11 @@ page '/*.txt', layout: false
 #  which_fake_page: "Rendering a fake page with a local variable" }
 
 require 'rack/request'
-# begin
+begin
   require 'dotenv'
   Dotenv.load
-# rescue LoadError
-# end
+rescue LoadError
+end
 
 require 'mail'
 
