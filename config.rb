@@ -37,6 +37,7 @@ Mail.defaults do
 end
 
 class ContactForm
+  JESSICA_EMAIL = 'rowlandjl82@gmail.com'
   def initialize(app)
     @app = app
   end
@@ -48,8 +49,9 @@ class ContactForm
       # require 'pry'
       # binding.pry
       mail = Mail.new do
-        from req.params["email"]
-        to 'rowlandjl82@gmail.com'
+        reply_to req.params["email"]
+        from JESSICA_EMAIL
+        to JESSICA_EMAIL
         subject req.params["subject"]
         body req.params["message"]
       end
