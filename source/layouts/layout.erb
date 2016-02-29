@@ -68,11 +68,10 @@
             data: $(contactForm).serialize()
           }).success(function(){
             alert('Thanks! I will be in contact shortly.');
-            // clear out the form
-            // manipulate the DOM to show a friendly confirmation message (maybe above the form)
+            $(".form-control").val('');
           });
         });
-      }
+      };
     </script>
   </body>
 </html>
