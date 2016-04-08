@@ -45,16 +45,15 @@ class ContactForm
   def call(env)
     req = request(env)
     if request(env).path == '/contact_submission'
-      # request.params
-      # require 'pry'
-      # binding.pry
       mail = Mail.new do
         reply_to req.params["email"]
         from JESSICA_EMAIL
         to JESSICA_EMAIL
         subject req.params["subject"]
-        body req.params["message"]
+        body ['Email:' => req.params["email"], 'Message:' => req.params["message"]]
+        # req.params["message"]
       end
+
       mail.deliver
       [200, {'Content-Type' => 'text/html'}, ['Thanks for submitting']]
 

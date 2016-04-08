@@ -12,15 +12,15 @@ title: Jessica Rowland | Developer
     <form action="/contact_submission" method="post" id="con-form">
       <div class="form-group">
         <label>Email address</label>
-        <input type="email" name="email" class="form-control">
+        <input type="email" name="email" class="form-control" required data-error="Email is required">
       </div>
       <div class="form-group">
         <label>Subject</label>
-        <input type="text/html" name="subject" class="form-control">
+        <input type="text/html" name="subject" class="form-control" required data-error="Subject is required">
       </div>
       <div class="form-group">
         <label>Message</label>
-        <textarea rows="3" type="text/html" class="form-control" name="message"></textarea>
+        <textarea rows="3" type="text/html" class="form-control" name="message" required data-error="Message is required"></textarea>
       </div>
       <button type="submit" onclick="resetForm()" value="Reset form" class="btn btn-default">Submit</button>
     </form>
